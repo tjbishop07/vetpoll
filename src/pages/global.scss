@@ -1,0 +1,366 @@
+@import "~bulma/sass/utilities/initial-variables.sass";
+@import "~bulma/sass/utilities/functions.sass";
+@import url("https://fonts.googleapis.com/css?family=Nunito|Quicksand|Lato&display=swap");
+
+// https://www.colorsandfonts.com/palettes.html
+// B8B42D - FFFCE8 - 3E363F - EEF5DB - DD403A
+
+$red: #dd403a;
+$green: #b8b42d;
+$green-invert: #fff;
+$family-serif: "Quicksand", sans-serif;
+$primary: $green;
+$primary-invert: $green-invert;
+$danger: $red;
+$family-primary: $family-serif;
+
+$linkedin: #0077b5;
+$linkedin-invert: findColorInvert($linkedin);
+$twitter: #55acee;
+$twitter-invert: findColorInvert($twitter);
+$github: #333;
+$github-invert: findColorInvert($github);
+
+@import "~bulma/sass/utilities/derived-variables.sass";
+$addColors: (
+  "twitter": (
+    $twitter,
+    $twitter-invert
+  ),
+  "linkedin": (
+    $linkedin,
+    $linkedin-invert
+  ),
+  "github": (
+    $github,
+    $github-invert
+  )
+);
+$colors: map-merge($colors, $addColors);
+
+@import "~bulma/bulma.sass";
+
+html,
+body,
+#___gatsby {
+  height: 100% !important;
+}
+
+body {
+  background: url(../img/bg-wave3.svg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+h1.title {
+  margin-top: 40px;
+}
+
+div[role="group"][tabindex] {
+  height: 100%;
+}
+
+.is-transparent {
+  background: none !important;
+}
+
+.effect-content {
+  font-family: "Lato", sans-serif;
+  line-height: 40px;
+
+  &__container {
+    font-weight: 600;
+    text-shadow: 1px 1px 2px #333;
+    overflow: hidden;
+    height: 40px;
+
+    &__text {
+      display: inline;
+      margin: 0;
+    }
+
+    &__list {
+      margin-top: 0;
+      padding-left: 85px;
+      text-align: left;
+      list-style: none;
+
+      -webkit-animation-name: change;
+      -webkit-animation-duration: 10s;
+      -webkit-animation-iteration-count: infinite;
+      animation-name: change;
+      animation-duration: 10s;
+      animation-iteration-count: infinite;
+
+      &__item {
+        line-height: 40px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes opacity {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes change {
+  0%,
+  12.66%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  16.66%,
+  29.32% {
+    transform: translate3d(0, -25%, 0);
+  }
+  33.32%,
+  45.98% {
+    transform: translate3d(0, -50%, 0);
+  }
+  49.98%,
+  62.64% {
+    transform: translate3d(0, -75%, 0);
+  }
+  66.64%,
+  79.3% {
+    transform: translate3d(0, -50%, 0);
+  }
+  83.3%,
+  95.96% {
+    transform: translate3d(0, -25%, 0);
+  }
+}
+
+@-o-keyframes opacity {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes change {
+  0%,
+  12.66%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  16.66%,
+  29.32% {
+    transform: translate3d(0, -25%, 0);
+  }
+  33.32%,
+  45.98% {
+    transform: translate3d(0, -50%, 0);
+  }
+  49.98%,
+  62.64% {
+    transform: translate3d(0, -75%, 0);
+  }
+  66.64%,
+  79.3% {
+    transform: translate3d(0, -50%, 0);
+  }
+  83.3%,
+  95.96% {
+    transform: translate3d(0, -25%, 0);
+  }
+}
+
+@-moz-keyframes opacity {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes change {
+  0%,
+  12.66%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  16.66%,
+  29.32% {
+    transform: translate3d(0, -25%, 0);
+  }
+  33.32%,
+  45.98% {
+    transform: translate3d(0, -50%, 0);
+  }
+  49.98%,
+  62.64% {
+    transform: translate3d(0, -75%, 0);
+  }
+  66.64%,
+  79.3% {
+    transform: translate3d(0, -50%, 0);
+  }
+  83.3%,
+  95.96% {
+    transform: translate3d(0, -25%, 0);
+  }
+}
+
+@keyframes opacity {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes change {
+  0%,
+  12.66%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  16.66%,
+  29.32% {
+    transform: translate3d(0, -25%, 0);
+  }
+  33.32%,
+  45.98% {
+    transform: translate3d(0, -50%, 0);
+  }
+  49.98%,
+  62.64% {
+    transform: translate3d(0, -75%, 0);
+  }
+  66.64%,
+  79.3% {
+    transform: translate3d(0, -50%, 0);
+  }
+  83.3%,
+  95.96% {
+    transform: translate3d(0, -25%, 0);
+  }
+}
+
+.chat-history {
+  padding: 20px;
+  overflow-y: scroll;
+  height: 475px;
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(85, 149, 27, 1) 0.1%,
+    rgba(183, 219, 87, 1) 90%
+  );
+
+  .message-data {
+    position: relative;
+    margin-bottom: 8px;
+    padding: 0 40px;
+  }
+
+  .message-data-time {
+    color: #cccccc;
+    padding-left: 6px;
+  }
+
+  .subtitle {
+    opacity: 0.5;
+  }
+
+  .message {
+    z-index: 1;
+    color: #333333;
+    padding: 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    width: 100%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    border: dashed 1px rgba(255, 255, 255, 0.25);
+  }
+
+  .message-icon {
+    z-index: 2;
+    position: absolute;
+  }
+
+  .message-icon.is-pulled-right {
+    right: 11px;
+    top: -1px;
+  }
+
+  .message-icon.is-pulled-left {
+    left: 11px;
+    top: -1px;
+  }
+
+  .other-message {
+    background: rgba(255, 255, 255, 0.75);
+    border: none;
+  }
+}
+
+.chat-message {
+  padding: 30px;
+
+  textarea {
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    font: 14px/22px "Lato", Arial, sans-serif;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    resize: none;
+  }
+
+  .fa-file-o,
+  .fa-file-image-o {
+    font-size: 16px;
+    color: gray;
+    cursor: pointer;
+  }
+
+  button {
+    float: right;
+    color: $blue;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: #f2f5f8;
+
+    &:hover {
+      color: darken($blue, 7%);
+    }
+  }
+}
+
+.no-messages {
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.smooth-shadow {
+  box-shadow: 0 1.6px 1.2px rgba(0, 0, 0, 0.015), 0 3.4px 2.7px rgba(0, 0, 0, 0.022), 0 5.8px 4.6px rgba(0, 0, 0, 0.027),
+    0 8.7px 6.9px rgba(0, 0, 0, 0.031), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 17.7px 14.2px rgba(0, 0, 0, 0.039),
+    0 25.1px 20.1px rgba(0, 0, 0, 0.043), 0 36.5px 29.2px rgba(0, 0, 0, 0.048), 0 56.3px 45px rgba(0, 0, 0, 0.055),
+    0 100px 80px rgba(0, 0, 0, 0.07);
+}

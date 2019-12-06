@@ -4,6 +4,10 @@ import { Link } from 'gatsby';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestion } from '@fortawesome/pro-duotone-svg-icons'
+
+
 const INITIAL_STATE = {
   email: '',
   error: null,
@@ -60,9 +64,7 @@ class PasswordForgetForm extends Component {
 }
 
 const PasswordForgetLink = () => (
-  <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-  </p>
+  <Link className="button is-info is-medium" to={ROUTES.PASSWORD_FORGET}><FontAwesomeIcon icon={faQuestion} /></Link>
 );
 
 export default withFirebase(PasswordForgetForm);

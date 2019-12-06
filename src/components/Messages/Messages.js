@@ -4,6 +4,9 @@ import { AuthUserContext } from '../Session';
 import { withFirebase } from '../Firebase';
 import MessageList from './MessageList';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane, faCactus, faMonkey } from '@fortawesome/pro-duotone-svg-icons'
+
 class Messages extends Component {
   _initFirebase = false;
 
@@ -14,7 +17,7 @@ class Messages extends Component {
       text: '',
       loading: false,
       messages: [],
-      limit: 5,
+      limit: 25,
     };
   }
 
@@ -50,6 +53,8 @@ class Messages extends Component {
             uid: key,
           }));
 
+
+
           this.setState({
             messages: messageList,
             loading: false,
@@ -69,9 +74,12 @@ class Messages extends Component {
   };
 
   onCreateMessage = (event, authUser) => {
+
     this.props.firebase.messages().push({
       text: this.state.text,
       userId: authUser.uid,
+      userName: authUser.username,
+      email: authUser.email,
       createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
 
@@ -107,38 +115,75 @@ class Messages extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <div>
-            {!loading && messages && (
-              <button type="button" onClick={this.onNextPage}>
-                More
-              </button>
-            )}
+          <div style={{ height: '300px' }}>
 
-            {loading && <div>Loading ...</div>}
 
-            {messages && (
-              <MessageList
-                authUser={authUser}
-                messages={messages}
-                onEditMessage={this.onEditMessage}
-                onRemoveMessage={this.onRemoveMessage}
-              />
-            )}
+            <nav className="panel smooth-shadow">
+              <p className="panel-heading">
+                Live Discussion
+                </p>
 
-            {!messages && <div>There are no messages ...</div>}
+              <div className="panel-block has-background-white">
+                <p className="title is-size-6 has-text-info">Q: What does is mean to be a Veteran?</p>
+              </div>
 
-            <form
-              onSubmit={event =>
-                this.onCreateMessage(event, authUser)
+
+              {loading &&
+                <div className="panel-block has-background-white">
+                  <progress className="progress is-small is-primary" max="100">100%</progress>
+                </div>
               }
-            >
-              <input
-                type="text"
-                value={text}
-                onChange={this.onChangeText}
-              />
-              <button type="submit">Send</button>
-            </form>
+
+              <div className="chat-history">
+                {messages && (
+                  <MessageList
+                    authUser={authUser}
+                    messages={messages}
+                    onEditMessage={this.onEditMessage}
+                    onRemoveMessage={this.onRemoveMessage}
+                  />
+                )}
+                {!messages &&
+                  <div className="no-messages">
+                    <h5>
+                      <FontAwesomeIcon icon={faMonkey} className="fa-7x" /><br />
+                      No messages found.
+                    </h5>
+                  </div>
+                }
+              </div>
+
+              {/* {!loading && messages && (
+                <a className="panel-block has-background-dark has-text-white" onClick={this.onNextPage}>Load more...</a>
+              )} */}
+
+              <div className="panel-block has-background-white">
+                <form
+                  style={{ width: '100%' }}
+                  onSubmit={event =>
+                    this.onCreateMessage(event, authUser)
+                  }
+                >
+                  <div className="field is-grouped">
+                    <p className="control is-expanded">
+                      <input
+                        className="input"
+                        type="text"
+                        value={text}
+                        placeholder="Say something..."
+                        onChange={this.onChangeText}
+                      />  </p>
+                    <p className="control">
+                      <button className="button is-dark" type="submit">
+                        <FontAwesomeIcon icon={faPaperPlane} />
+                      </button>
+                    </p>
+                  </div>
+                </form>
+              </div>
+
+            </nav>
+
           </div>
         )}
       </AuthUserContext.Consumer>

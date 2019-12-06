@@ -7,17 +7,23 @@ import SignInForm, {
   SignInTwitter,
 } from '../components/SignIn';
 import { SignUpLink } from '../components/SignUp';
-import { PasswordForgetLink } from '../components/PasswordForget';
 
 const SignInPage = () => (
   <Fragment>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <SignInGoogle />
-    <SignInFacebook />
-    <SignInTwitter />
-    <PasswordForgetLink />
-    <SignUpLink />
+    <h1 className="title has-text-white has-text-centered is-size-3">Sign In</h1>
+    <div className="columns">
+      <div className="column is-4 is-offset-4">
+        <SignInForm />
+      </div>
+    </div>
+    <div className="columns">
+      <div className="column is-4 is-offset-4">
+        <SignInGoogle />
+        {/* <SignInFacebook />
+        <SignInTwitter /> */}
+        {/* <SignUpLink /> */}
+      </div>
+    </div>
   </Fragment>
 );
 

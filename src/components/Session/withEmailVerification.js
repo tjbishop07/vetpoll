@@ -3,6 +3,9 @@ import React from 'react';
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane, faCheck, faInboxIn } from '@fortawesome/pro-duotone-svg-icons'
+
 const needsEmailVerification = authUser =>
   authUser &&
   !authUser.emailVerified &&
@@ -31,30 +34,41 @@ const withEmailVerification = Component => {
             needsEmailVerification(authUser) ? (
               <div>
                 {this.state.isSent ? (
-                  <p>
-                    E-Mail confirmation sent: Check you E-Mails (Spam
-                    folder included) for a confirmation E-Mail.
-                    Refresh this page once you confirmed your E-Mail.
-                  </p>
+                  <div className="notification is-success has-text-dark has-text-weight-bold">
+                    <button className="delete"></button>
+                    <span className="icon is-pulled-left"><FontAwesomeIcon icon={faCheck} /></span>
+                    E-mail confirmation has been sent (don't forget to check your spam folder)
+                  </div>
                 ) : (
-                  <p>
-                    Verify your E-Mail: Check you E-Mails (Spam folder
-                    included) for a confirmation E-Mail or send
-                    another confirmation E-Mail.
-                  </p>
-                )}
-
-                <button
-                  type="button"
-                  onClick={this.onSendEmailVerification}
-                  disabled={this.state.isSent}
-                >
-                  Send confirmation E-Mail
-                </button>
+                    <article className="message is-warning">
+                      <div className="message-header">
+                        <p>One more thing...</p>
+                      </div>
+                      <div className="message-body">
+                        <div className="columns">
+                          <div className="column is-10">
+                          <span className="icon is-pulled-left"><FontAwesomeIcon icon={faInboxIn} /></span>
+                            We sent a verfication e-mail to your inbox. 
+                            Please check your e-mail (spam folder too!) and click the link to complete the verification process.
+                          </div>
+                          <div className="column is-2">
+                            <button
+                              className="button is-dark is-fullwidth is-outlined"
+                              type="button"
+                              onClick={this.onSendEmailVerification}
+                              disabled={this.state.isSent}
+                            >
+                              <span className="icon"><FontAwesomeIcon icon={faPaperPlane} /></span> <span>Resend</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  )}
               </div>
             ) : (
-              <Component {...this.props} />
-            )
+                <Component {...this.props} />
+              )
           }
         </AuthUserContext.Consumer>
       );

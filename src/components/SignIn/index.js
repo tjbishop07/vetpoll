@@ -4,10 +4,16 @@ import { navigate } from 'gatsby';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/pro-duotone-svg-icons'
+
+import { PasswordForgetLink } from '../PasswordForget';
+
 const INITIAL_STATE = {
   email: '',
   password: '',
   error: null,
+  isLoading: false
 };
 
 const ERROR_CODE_ACCOUNT_EXISTS =
@@ -29,6 +35,7 @@ class SignInFormBase extends Component {
 
   onSubmit = event => {
     const { email, password } = this.state;
+    this.setState({ ...this.state, isLoading: true })
 
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
@@ -37,7 +44,7 @@ class SignInFormBase extends Component {
         navigate(ROUTES.HOME);
       })
       .catch(error => {
-        this.setState({ error });
+        this.setState({ error, isLoading: false });
       });
 
     event.preventDefault();
@@ -54,25 +61,50 @@ class SignInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
+
+        <div className="field">
+          <div className="control has-icons-left">
+            <input
+              className="input is-medium"
+              name="email"
+              value={email}
+              onChange={this.onChange}
+              type="text"
+              placeholder="Email"
+            />
+            <span className="icon is-medium is-left">
+              <FontAwesomeIcon icon={faEnvelope} />
+            </span>
+          </div>
+        </div>
+
+        <div className="field has-addons">
+          <div className="control has-icons-left">
+            <input
+              className="input is-medium"
+              name="password"
+              value={password}
+              onChange={this.onChange}
+              type="password"
+              placeholder="Password"
+            />
+            <span className="icon is-medium is-left">
+              <FontAwesomeIcon icon={faLock} />
+            </span>
+          </div>
+          <div className="control">
+            <PasswordForgetLink />
+          </div>
+        </div>
+
+        {error && <article className="message is-danger">
+          <div className="message-body">{error.message}</div>
+        </article>}
+
+        <button className={`${this.state.isLoading ? 'is-loading' : ''} button is-primary is-pulled-right is-medium is-fullwidth`} disabled={isInvalid} type="submit">
+          Continue
         </button>
 
-        {error && <p>{error.message}</p>}
       </form>
     );
   }
@@ -116,9 +148,10 @@ class SignInGoogleBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Google</button>
-
-        {error && <p>{error.message}</p>}
+        <button className="button is-white is-fullwidth is-outlined" type="submit">Sign in with Google</button>
+        {error && <article className="message is-danger">
+          <div className="message-body">{error.message}</div>
+        </article>}
       </form>
     );
   }
@@ -208,7 +241,7 @@ class SignInTwitterBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Twitter</button>
+        <button className="button is-info is-fullwidth" type="submit">Sign In with Twitter</button>
 
         {error && <p>{error.message}</p>}
       </form>
